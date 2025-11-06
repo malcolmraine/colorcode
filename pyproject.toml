@@ -1,0 +1,7 @@
+[project]
+name = "colorcode"
+version = "0.1.0"
+description = "Python library for handling colors"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
