@@ -1,5 +1,6 @@
 from __future__ import annotations
 import abc
+import colorsys
 import math
 import typing
 
@@ -112,10 +113,27 @@ class ColorSpace_HSV(ColorSpace):
     https://en.wikipedia.org/wiki/HSL_and_HSV
     """
 
-    def __init__(self, hue: float, saturation: float, value: float = 0.0) -> None:
+    def __init__(
+        self,
+        hue: float | int | color_types.ComponentValue,
+        saturation: float | int | color_types.ComponentValue,
+        value: float | int | color_types.ComponentValue = 0.0,
+    ) -> None:
         self.hue = color_types.ComponentValue(hue)
         self.saturation = color_types.ComponentValue(saturation)
         self.value = color_types.ComponentValue(value)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.hue}, {self.saturation}, value={self.value})"
+
+    def __copy__(self):
+        return ColorSpace_HSV(self.hue, self.saturation, self.value)
+
+    def to_rgb(self) -> ColorSpace_RGB:
+        r, g, b = colorsys.hsv_to_rgb(
+            float(self.hue), float(self.saturation), float(self.value)
+        )
+        return ColorSpace_RGB(r, g, b)
 
 
 ###############################################################################
@@ -128,10 +146,27 @@ class ColorSpace_HSL(ColorSpace):
     https://en.wikipedia.org/wiki/HSL_and_HSV
     """
 
-    def __init__(self, hue: float, saturation: float, lightness: float = 0.0) -> None:
+    def __init__(
+        self,
+        hue: float | int | color_types.ComponentValue,
+        saturation: float | int | color_types.ComponentValue,
+        lightness: float | int | color_types.ComponentValue = 0.0,
+    ) -> None:
         self.hue = color_types.ComponentValue(hue)
         self.saturation = color_types.ComponentValue(saturation)
         self.lightness = color_types.ComponentValue(lightness)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.hue}, {self.saturation}, lightness={self.lightness})"
+
+    def __copy__(self):
+        return ColorSpace_HSL(self.hue, self.saturation, self.lightness)
+
+    def to_rgb(self) -> ColorSpace_RGB:
+        r, g, b = colorsys.hls_to_rgb(
+            float(self.hue), float(self.saturation), float(self.lightness)
+        )
+        return ColorSpace_RGB(r, g, b)
 
 
 ###############################################################################
@@ -144,10 +179,27 @@ class ColorSpace_HSI(ColorSpace):
     https://en.wikipedia.org/wiki/HSL_and_HSV
     """
 
-    def __init__(self, hue: float, saturation: float, intensity: float = 0.0) -> None:
+    def __init__(
+        self,
+        hue: float | int | color_types.ComponentValue,
+        saturation: float | int | color_types.ComponentValue,
+        intensity: float | int | color_types.ComponentValue = 0.0,
+    ) -> None:
         self.hue = color_types.ComponentValue(hue)
         self.saturation = color_types.ComponentValue(saturation)
         self.intensity = color_types.ComponentValue(intensity)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}({self.hue}, {self.saturation}, intensity={self.intensity})"
+
+    def __copy__(self):
+        return ColorSpace_HSI(self.hue, self.saturation, self.intensity)
+
+    def to_rgb(self) -> ColorSpace_RGB:
+        r, g, b = colorsys.hls_to_rgb(
+            float(self.hue), float(self.saturation), float(self.intensity)
+        )
+        return ColorSpace_RGB(r, g, b)
 
 
 ###############################################################################
@@ -162,11 +214,20 @@ class ColorSpace_TSL(ColorSpace):
     """
 
     def __init__(
-        self, tint: float = 0.0, saturation: float = 0.0, lightness: float = 0.0
+        self,
+        tint: float | int | color_types.ComponentValue = 0.0,
+        saturation: float | int | color_types.ComponentValue = 0.0,
+        lightness: float | int | color_types.ComponentValue = 0.0,
     ):
         self.tint = ComponentValue(tint)
         self.saturation = ComponentValue(saturation)
         self.lightness = ComponentValue(lightness)
+
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(tint={self.tint}, saturation={self.saturation}, lightness={self.lightness})"
+
+    def __copy__(self):
+        return ColorSpace_TSL(self.tint, self.saturation, self.lightness)
 
     @classmethod
     def from_rgb[T](cls: T, model: ColorSpace_RGB) -> T:
@@ -217,3 +278,7 @@ class ColorSpace_TSL(ColorSpace):
         rgb_model.blue = k * (1 - r - g)
 
         return rgb_model
+
+
+sp = ColorSpace_TSL.from_rgb(ColorSpace_RGB(255, 255, 255))
+print(sp.to_rgb())
