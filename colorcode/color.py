@@ -4,6 +4,7 @@ import colorsys
 from functools import singledispatch
 from . import color_model
 from . import color_parser
+from .default_colors import DefaultColor
 
 
 class Color(object):
@@ -176,12 +177,17 @@ class Color(object):
         self.red, self.green, self.blue = colorsys.rgb_to_hls(*value)
 
     @classmethod
-    def create(cls, data: int | str | list[int]) -> Color:
+    def create(cls, data: int | str | list[int] | DefaultColor) -> Color:
         if isinstance(data, int):
             components = color_parser.parse_color_int(data)
             return cls(*components)
         elif isinstance(data, str):
             components = color_parser.parse_color_string(data)
+            return cls(*components)
+        elif isinstance(data, (list, tuple)):
+            return cls(*data)
+        elif isinstance(data, DefaultColor):
+            components = color_parser.parse_color_string(str(data))
             return cls(*components)
         else:
             return cls(*data)
@@ -255,7 +261,7 @@ class Color(object):
         This operates on the Color instance in-place.
         """
         h, s, v = self.hsv
-        s = min(0.0, s - amount)
+        s = max(0.0, s - amount)
         self.hsv = h, s, v
 
         return self
@@ -279,7 +285,7 @@ class Color(object):
         This operates on the Color instance in-place.
         """
         h, s, v = self.hsv
-        v = min(0.0, v - amount)
+        v = max(0.0, v - amount)
         self.hsv = h, s, v
         return self
 

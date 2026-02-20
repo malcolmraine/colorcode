@@ -28,7 +28,7 @@ def parse_color_string(
         Raised if the color string is invalid.
 
     """
-    cleaned_string = color_string.strip()
+    cleaned_string = str(color_string).strip()
     if cleaned_string.startswith("#"):
         return parse_hex_string(cleaned_string)
     else:

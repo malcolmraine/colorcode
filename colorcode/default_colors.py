@@ -1,12 +1,13 @@
 import enum
 
 
-class DefaultColors(enum.StrEnum):
+class DefaultColor(enum.StrEnum):
     """
     Pre-defined list of X11 colors.
 
     https://en.wikipedia.org/wiki/X11_color_names
     """
+
     Alice_Blue = "#F0F8FF"
     Antique_White = "#FAEBD7"
     Aqua = "#00FFFF"

@@ -1,11 +1,11 @@
 from .color import Color
 from . import color_model
 from . import color_parser
-from .default_colors import DefaultColors
+from .default_colors import DefaultColor
 
 __version__ = "0.1.0"
 
-__all__ = ["Color", "color_model", "color_parser", "DefaultColors"]
+__all__ = ["Color", "color_model", "color_parser", "DefaultColor"]
 
 
 # Roadmap
