@@ -17,13 +17,3 @@ general utilities for parsing color descriptor strings.
 List of default colors to choose from
 
 """
-
-# Structure
-"""
-A color is an instance of a class that has general methods for interacting with colors. 
-A color instance should be able to easily produce values for different aspects of the color
-    - hue, red, green, blue
-    - Should be able to change the transparency of the color
-    
-A color instance has a property for its color model.
-"""
