@@ -3,6 +3,7 @@ from __future__ import annotations
 import typing
 from typing import SupportsFloat, SupportsInt
 import operator
+import colorsys
 
 
 class ComponentValue(SupportsInt, SupportsFloat):
@@ -40,11 +41,11 @@ class ComponentValue(SupportsInt, SupportsFloat):
         op_fn: typing.Callable[[typing.Any, typing.Any], typing.Any],
     ) -> T:
         if isinstance(other, ComponentValue):
-            return typing.cast(T, op_fn(self._value, other._value))
+            return ComponentValue(op_fn(self._value, other._value))
         elif isinstance(other, SupportsFloat):
-            return typing.cast(T, op_fn(self._value, float(other)))
+            return ComponentValue(op_fn(self._value, float(other)))
         elif isinstance(other, SupportsInt):
-            return typing.cast(T, op_fn(self._value, int(other)))
+            return ComponentValue(op_fn(self._value, int(other)))
         else:
             raise ValueError(f"Invalid component: {other}")
 

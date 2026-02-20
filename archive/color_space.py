@@ -264,14 +264,16 @@ class ColorSpace_TSL(ColorSpace):
 
         Returns
         -------
+        ColorSpace_RGB
+            The RGB color space.
 
         """
         rgb_model = ColorSpace_RGB()
         x = math.tan(math.tau * (float(self.tint) - 0.25)) ** 2
         r_prime = math.sqrt((5 * float(self.saturation) ** 2) / (9 * ((x**-1) + 1)))
         g_prime = math.sqrt((5 * float(self.saturation) ** 2) / (9 * (x + 1)))
-        r = r_prime + (1 / 3)
-        g = g_prime + (1 / 3)
+        r = r_prime + colorsys.ONE_THIRD
+        g = g_prime + colorsys.ONE_THIRD
         k = self.lightness / (0.185 * r + 0.473 * g + 0.114)
         rgb_model.red = k * r
         rgb_model.green = k * g

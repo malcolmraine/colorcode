@@ -1,8 +1,8 @@
 ##
 from __future__ import annotations
 
-from color_types import ColorComponents, RawColorValue, ComponentValue
-import color_parser
+from color_types import ColorComponents, RawColorValue
+from colorcode import color_parser
 from colorcode.color_space import ColorSpace_RGB
 from rgb_format import RGBFormat
 
