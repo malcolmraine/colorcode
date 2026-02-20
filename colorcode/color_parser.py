@@ -7,7 +7,9 @@ RGB_PREFIX: typing.Final[str] = "rgb"
 RGBA_PREFIX: typing.Final[str] = "rgba"
 
 
-def parse_color_string(color_string: str) -> tuple[int, int, int] | tuple[int, int, int, int]:
+def parse_color_string(
+    color_string: str,
+) -> tuple[int, int, int] | tuple[int, int, int, int]:
     """
 
     Parameters
@@ -38,7 +40,9 @@ def parse_color_string(color_string: str) -> tuple[int, int, int] | tuple[int, i
         return tuple(map(int, string_parts))
 
 
-def parse_hex_string(hex_string: str) -> tuple[int, int, int] | tuple[int, int, int, int]:
+def parse_hex_string(
+    hex_string: str,
+) -> tuple[int, int, int] | tuple[int, int, int, int]:
     """
     Parse a hex string into a tuple.
 
