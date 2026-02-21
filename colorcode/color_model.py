@@ -1,6 +1,7 @@
 import colorsys
 import math
 from abc import abstractmethod, ABC
+import enum
 
 
 def calc_red_chromacity(red: float, green: float, blue: float) -> float:
@@ -12,12 +13,41 @@ def calc_green_chromacity(red: float, green: float, blue: float) -> float:
 
 
 ###############################################################################
+class ColorComponent(enum.StrEnum):
+    RED = "Red"
+    GREEN = "Green"
+    BLUE = "Blue"
+    HUE = "Hue"
+    SATURATION = "Saturation"
+    VALUE = "Value"
+    LIGHTNESS = "Lightness"
+    TINT = "Tint"
+
+
+###############################################################################
 class ColorModel(ABC):
     @abstractmethod
-    def to_rgb(self, *args: float) -> tuple[float, ...]: ...
+    def to_rgb(self, *args: float) -> tuple[float, float, float]: ...
 
     @abstractmethod
     def from_rgb(self, red: float, green: float, blue: float) -> tuple[float, ...]: ...
+
+
+###############################################################################
+class RGB_Model(ColorModel):
+    """
+    Pass through color model.
+    """
+
+    def to_rgb(
+        self, red: float, green: float, blue: float
+    ) -> tuple[float, float, float]:
+        return red, green, blue
+
+    def from_rgb(
+        self, red: float, green: float, blue: float
+    ) -> tuple[float, float, float]:
+        return red, green, blue
 
 
 ###############################################################################

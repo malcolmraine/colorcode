@@ -40,7 +40,7 @@ class Color(object):
         self._base = base
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(r={self.red}, g={self.green}, b={self.blue}, a={self.alpha})"
+        return f"{self.__class__.__name__}(r={self.red * self._base}, g={self.green * self._base}, b={self.blue * self._base}, a={self.alpha * self._base})"
 
     @property
     def base(self) -> int | float:
@@ -107,11 +107,11 @@ class Color(object):
         tuple[float, float, float]
             The Hue, Saturation, and Value components of the color.
             Hue is expressed as an angular value from 0-360 while Saturation and
-            Value are expressed as percentages from 0-100
+            Value are expressed as percentages from 0-1
 
         """
         h, s, v = color_model.HSV_Model().from_rgb(self.red, self.green, self.blue)
-        return h * 360, s * 100, s * 100
+        return h * 360, s, v
 
     @hsv.setter
     def hsv(self, value: tuple[float, float, float]) -> None:
@@ -123,13 +123,13 @@ class Color(object):
         value : tuple[float, float, float]
             The Hue, Saturation, and Value components of the color.
             Hue is expressed as an angular value from 0-360 while Saturation and
-            Value are expressed as percentages from 0-100
+            Value are expressed as percentages from 0-1
 
         Returns
         -------
         None
         """
-        h, s, v = value[0] / 360, value[1] / 100, value[2] / 100
+        h, s, v = value[0] / 360, value[1], value[2]
         self.red, self.green, self.blue = map(
             int, color_model.HSV_Model().to_rgb(h, s, v)
         )

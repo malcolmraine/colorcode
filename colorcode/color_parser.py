@@ -32,10 +32,10 @@ def parse_color_string(
     if cleaned_string.startswith("#"):
         return parse_hex_string(cleaned_string)
     else:
-        if cleaned_string.startswith(RGB_PREFIX):
-            cleaned_string.strip(RGB_PREFIX)
-        elif cleaned_string.startswith(RGBA_PREFIX):
-            cleaned_string.strip(RGBA_PREFIX)
+        if cleaned_string.startswith(RGBA_PREFIX):
+            cleaned_string = cleaned_string[len(RGBA_PREFIX):]
+        elif cleaned_string.startswith(RGB_PREFIX):
+            cleaned_string = cleaned_string[len(RGB_PREFIX):]
         string_parts = cleaned_string.strip("(").strip(")").split(",")
         return tuple(map(int, string_parts))
 
@@ -67,7 +67,7 @@ def parse_hex_string(
             int(cleaned_string[0:2], 16),
             int(cleaned_string[2:4], 16),
             int(cleaned_string[4:6], 16),
-            round(int(cleaned_string[6:8], 16) / 255, 3),
+            int(cleaned_string[6:8], 16),
         )
     elif len(cleaned_string) == 6:
         components = (

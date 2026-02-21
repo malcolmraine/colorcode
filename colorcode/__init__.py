@@ -2,10 +2,23 @@ from .color import Color
 from . import color_model
 from . import color_parser
 from .default_colors import DefaultColor
+from . import gradient
+from .gradient import Gradient
+from .gradient_curve import LinearCurve, LogarithmicCurve, ExponentialCurve
 
 __version__ = "0.1.0"
 
-__all__ = ["Color", "color_model", "color_parser", "DefaultColor"]
+__all__ = [
+    "Color",
+    "color_model",
+    "color_parser",
+    "DefaultColor",
+    "gradient",
+    "Gradient",
+    "LinearCurve",
+    "LogarithmicCurve",
+    "ExponentialCurve",
+]
 
 
 # Roadmap
