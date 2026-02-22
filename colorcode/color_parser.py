@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import typing
+from ._color_types import ComponentTuple
 
 
 RGB_PREFIX: typing.Final[str] = "rgb"
@@ -9,7 +10,7 @@ RGBA_PREFIX: typing.Final[str] = "rgba"
 
 def parse_color_string(
     color_string: str,
-) -> tuple[int, int, int] | tuple[int, int, int, int]:
+) -> ComponentTuple:
     """
 
     Parameters
@@ -42,7 +43,7 @@ def parse_color_string(
 
 def parse_hex_string(
     hex_string: str,
-) -> tuple[int, int, int] | tuple[int, int, int, int]:
+) -> ComponentTuple:
     """
     Parse a hex string into a tuple.
 
@@ -81,7 +82,7 @@ def parse_hex_string(
     return components
 
 
-def parse_color_int(color_int: int) -> tuple[int, int, int] | tuple[int, int, int, int]:
+def parse_color_int(color_int: int) -> ComponentTuple:
     """
     Convert an integer into color components.
 

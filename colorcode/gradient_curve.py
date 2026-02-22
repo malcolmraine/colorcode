@@ -37,4 +37,6 @@ class LogarithmicCurve(GradientCurve):
         self._factor = factor
 
     def __call__(self, x: float) -> float:
+        if x <= 0.0:
+            return 0.0
         return self._clamp(self._factor * math.log(x) + 1)
