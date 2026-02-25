@@ -35,7 +35,7 @@ class Gradient(object):
         self._model = model
         self._start_components = self._model.from_rgb(*start_color.rgb)
         self._end_components = self._model.from_rgb(*end_color.rgb)
-        self._ranges = [c2 - c1 for c1, c2 in zip(start_color.rgb, end_color.rgb)]
+        self._ranges = [c2 - c1 for c1, c2 in zip(self._start_components, self._end_components)]
 
         if curve is None:
             self._curve = LinearCurve()
