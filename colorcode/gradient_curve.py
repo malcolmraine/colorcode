@@ -5,6 +5,8 @@ Curves for specifying the transition between the start and end of a color gradie
 import math
 from abc import abstractmethod, ABC
 
+from ._util import clamp
+
 
 ###############################################################################
 class GradientCurve(ABC):
@@ -13,7 +15,7 @@ class GradientCurve(ABC):
 
     @staticmethod
     def _clamp(x: float) -> float:
-        return max(0.0, min(x, 1.0))
+        return clamp(x, 0, 1)
 
 
 ###############################################################################

@@ -34,9 +34,9 @@ def parse_color_string(
         return parse_hex_string(cleaned_string)
     else:
         if cleaned_string.startswith(RGBA_PREFIX):
-            cleaned_string = cleaned_string[len(RGBA_PREFIX):]
+            cleaned_string = cleaned_string[len(RGBA_PREFIX) :]
         elif cleaned_string.startswith(RGB_PREFIX):
-            cleaned_string = cleaned_string[len(RGB_PREFIX):]
+            cleaned_string = cleaned_string[len(RGB_PREFIX) :]
         string_parts = cleaned_string.strip("(").strip(")").split(",")
         return tuple(map(int, string_parts))
 

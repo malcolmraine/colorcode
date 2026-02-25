@@ -1,8 +1,8 @@
 import unittest
 from colorcode import color_parser
 
-class TestColorParser(unittest.TestCase):
 
+class TestColorParser(unittest.TestCase):
     def test_parse_color_string(self):
         results = color_parser.parse_color_string("rgb(255,255,255)")
         self.assertListEqual(list(results), [255, 255, 255])
@@ -58,5 +58,5 @@ class TestColorParser(unittest.TestCase):
         self.assertListEqual(list(results), [110, 27, 107, 252])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -1,10 +1,10 @@
 from __future__ import annotations
 
 import colorsys
-from functools import singledispatch
 from . import color_model
 from . import color_parser
 from .default_colors import DefaultColor
+from ._color_types import ComponentTuple
 
 
 class Color(object):
@@ -177,7 +177,9 @@ class Color(object):
         self.red, self.green, self.blue = colorsys.rgb_to_hls(*value)
 
     @classmethod
-    def create(cls, data: int | str | list[int] | DefaultColor) -> Color:
+    def create(
+        cls, data: int | str | list[int | float] | ComponentTuple | DefaultColor
+    ) -> Color:
         if isinstance(data, int):
             components = color_parser.parse_color_int(data)
             return cls(*components)
