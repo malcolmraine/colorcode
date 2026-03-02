@@ -11,7 +11,6 @@ import colorsys
 import math
 from abc import abstractmethod, ABC
 import enum
-from ._color_types import ComponentTuple
 
 
 # Models use three-component tuples (tint/hue, saturation, lightness/value)
