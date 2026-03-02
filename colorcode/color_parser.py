@@ -45,7 +45,13 @@ def parse_color_string(
         elif cleaned_string.startswith(RGB_PREFIX):
             cleaned_string = cleaned_string[len(RGB_PREFIX) :]
         string_parts = cleaned_string.strip("(").strip(")").split(",")
-        return tuple(map(int, string_parts))
+        parts = [int(p) for p in string_parts if p != ""]
+        if len(parts) == 3:
+            return (parts[0], parts[1], parts[2])
+        elif len(parts) == 4:
+            return (parts[0], parts[1], parts[2], parts[3])
+        else:
+            raise ValueError(f"Invalid color string: {color_string}")
 
 
 def parse_hex_string(
@@ -70,6 +76,7 @@ def parse_hex_string(
         Raised if the hex string is invalid.
     """
     cleaned_string = hex_string.strip().strip("#")
+    components: ComponentTuple
     if len(cleaned_string) == 8:
         components = (
             int(cleaned_string[0:2], 16),

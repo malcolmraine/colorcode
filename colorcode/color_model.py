@@ -14,6 +14,10 @@ import enum
 from ._color_types import ComponentTuple
 
 
+# Models use three-component tuples (tint/hue, saturation, lightness/value)
+ModelTuple = tuple[float, float, float]
+
+
 def calc_red_chromacity(red: float, green: float, blue: float) -> float:
     return red / (red + blue + green)
 
@@ -45,14 +49,14 @@ class ColorComponent(enum.StrEnum):
 ###############################################################################
 class ColorModel(ABC):
     @abstractmethod
-    def to_rgb(self, *args: float) -> ComponentTuple: ...
+    def to_rgb(self, a: float, b: float, c: float) -> ModelTuple: ...
 
     @abstractmethod
-    def from_rgb(self, red: float, green: float, blue: float) -> tuple[float, ...]: ...
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple: ...
 
     @classmethod
     def create(cls, model_type: ColorModelType) -> ColorModel:
-        match model_type.value:
+        match model_type:
             case ColorModelType.HSV:
                 return HSV_Model()
             case ColorModelType.RGB:
@@ -62,7 +66,7 @@ class ColorModel(ABC):
             case ColorModelType.HSL:
                 return HSL_Model()
             case _:
-                raise ValueError(f"Unknown color model type: {model_type.value}")
+                raise ValueError(f"Unknown color model type: {model_type}")
 
 
 ###############################################################################
@@ -71,10 +75,9 @@ class RGB_Model(ColorModel):
     Pass through/default color model.
     """
 
-    def to_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
+    def to_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
         return red, green, blue
-
-    def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
         return red, green, blue
 
 
@@ -82,12 +85,12 @@ class RGB_Model(ColorModel):
 class TSL_Model(ColorModel):
     def to_rgb(
         self, tint: float, saturation: float, lightness: float
-    ) -> ComponentTuple:
+    ) -> ModelTuple:
         x = math.tan(math.tau * (float(tint) - 0.25)) ** 2
         r_prime = math.sqrt((5 * float(saturation) ** 2) / (9 * ((x**-1) + 1)))
         g_prime = math.sqrt((5 * float(saturation) ** 2) / (9 * (x + 1)))
-        r = r_prime + colorsys.ONE_THIRD
-        g = g_prime + colorsys.ONE_THIRD
+        r = r_prime + (1.0 / 3.0)
+        g = g_prime + (1.0 / 3.0)
         k = lightness / (0.185 * r + 0.473 * g + 0.114)
         red = k * r
         green = k * g
@@ -95,9 +98,9 @@ class TSL_Model(ColorModel):
 
         return red, green, blue
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
-        r_prime = calc_red_chromacity(red, green, blue) - colorsys.ONE_THIRD
-        g_prime = calc_green_chromacity(red, green, blue) - colorsys.ONE_THIRD
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+        r_prime = calc_red_chromacity(red, green, blue) - (1.0 / 3.0)
+        g_prime = calc_green_chromacity(red, green, blue) - (1.0 / 3.0)
 
         if g_prime != 0:
             tint = 0.5 - (math.atan2(g_prime, r_prime) / math.tau)
@@ -111,31 +114,34 @@ class TSL_Model(ColorModel):
 
 ###############################################################################
 class HSV_Model(ColorModel):
-    def to_rgb(self, hue: float, saturation: float, value: float) -> ComponentTuple:
+    def to_rgb(self, hue: float, saturation: float, value: float) -> ModelTuple:
         return colorsys.hsv_to_rgb(hue, saturation, value)
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
         return colorsys.rgb_to_hsv(red, green, blue)
 
 
 ###############################################################################
 class HSL_Model(ColorModel):
-    def to_rgb(self, hue: float, saturation: float, lightness: float) -> ComponentTuple:
+    def to_rgb(self, hue: float, saturation: float, lightness: float) -> ModelTuple:
         # colorsys expects arguments in HLS order (hue, lightness, saturation).
         # our method signature names the second and third parameters
         # ``saturation`` and ``lightness`` respectively, so swap them when
         # invoking the underlying conversion to match the expected order.
         return colorsys.hls_to_rgb(hue, lightness, saturation)
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
-        h, l, s = colorsys.rgb_to_hls(red, green, blue)
-        return h, s, l
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+        # ``colorsys.rgb_to_hls`` returns (hue, lightness, saturation).
+        # we convert to the external (hue, saturation, lightness) ordering
+        # so rename the middle component to avoid an ambiguous `l` name.
+        h, lightness, s = colorsys.rgb_to_hls(red, green, blue)
+        return h, s, lightness
 
 
 ###############################################################################
 class YIQ_Model(ColorModel):
-    def to_rgb(self, y: float, i: float, q: float) -> ComponentTuple:
+    def to_rgb(self, y: float, i: float, q: float) -> ModelTuple:
         return colorsys.yiq_to_rgb(y, i, q)
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
-        return colorsys.yiq_to_rgb(red, green, blue)
+    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+        return colorsys.rgb_to_yiq(red, green, blue)

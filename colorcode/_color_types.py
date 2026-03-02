@@ -5,4 +5,10 @@ Author: Malcolm Hall
 License: MIT
 """
 
-ComponentTuple = tuple[float, float, float] | tuple[float, float, float, float]
+# Components may be ints (0-255) or floats (0.0-1.0) depending on context.
+Component = float | int
+
+ComponentTuple = (
+    tuple[Component, Component, Component]
+    | tuple[Component, Component, Component, Component]
+)

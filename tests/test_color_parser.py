@@ -3,7 +3,7 @@ from colorcode import color_parser
 
 
 class TestColorParser(unittest.TestCase):
-    def test_parse_color_string(self):
+    def test_parse_color_string(self) -> None:
         results = color_parser.parse_color_string("rgb(255,255,255)")
         self.assertListEqual(list(results), [255, 255, 255])
 
@@ -19,7 +19,7 @@ class TestColorParser(unittest.TestCase):
         results = color_parser.parse_color_string("rgba(255,255,255,0)")
         self.assertListEqual(list(results), [255, 255, 255, 0])
 
-    def test_parse_hex_string(self):
+    def test_parse_hex_string(self) -> None:
         results = color_parser.parse_hex_string("#FFFFFF")
         self.assertListEqual(list(results), [255, 255, 255])
 
@@ -38,11 +38,11 @@ class TestColorParser(unittest.TestCase):
         results = color_parser.parse_hex_string("#6e1b6bfc")
         self.assertListEqual(list(results), [110, 27, 107, 252])
 
-    def test_parse_color_int(self):
+    def test_parse_color_int(self) -> None:
         results = color_parser.parse_color_int(16777215)
         self.assertListEqual(list(results), [255, 255, 255])
 
-    def test_default_colors_roundtrip(self):
+    def test_default_colors_roundtrip(self) -> None:
         """Each DefaultColor should parse and round-trip back to the same hex."""
         from colorcode.default_colors import DefaultColor
         from colorcode import color

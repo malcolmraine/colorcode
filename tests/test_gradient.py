@@ -5,7 +5,7 @@ from colorcode.gradient_curve import LinearCurve
 
 
 class TestGradient(unittest.TestCase):
-    def test_iteration_linear(self):
+    def test_iteration_linear(self) -> None:
         """Verify that iterating a linear gradient yields evenly spaced RGB results."""
         start = color.Color(0, 0, 0)
         end = color.Color(255, 255, 255)
@@ -23,7 +23,7 @@ class TestGradient(unittest.TestCase):
         for r, e in zip(results, expected):
             self.assertEqual(r.rgb, e.rgb)
 
-    def test_get_color_at_fraction(self):
+    def test_get_color_at_fraction(self) -> None:
         """Ensure get_color returns the correct interpolated color for a given fraction."""
         start = color.Color(0, 0, 0)
         end = color.Color(255, 0, 0)
@@ -34,7 +34,7 @@ class TestGradient(unittest.TestCase):
         self.assertEqual(mid.rgb[1], 0)
         self.assertEqual(mid.rgb[2], 0)
 
-    def test_custom_curve(self):
+    def test_custom_curve(self) -> None:
         """Check that supplying a curve object affects the computed gradient values."""
         start = color.Color(0, 0, 0)
         end = color.Color(0, 255, 0)

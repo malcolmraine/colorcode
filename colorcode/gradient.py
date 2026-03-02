@@ -48,7 +48,8 @@ class Gradient(object):
         ]
         self._current_step = 0
         self._max_steps = steps
-
+        # explicitly annotate _curve as a GradientCurve so mypy knows its type
+        self._curve: GradientCurve
         if curve is None:
             self._curve = LinearCurve()
         else:

@@ -1,13 +1,11 @@
 import unittest
-import colorsys
 
 from colorcode import color
 from colorcode.default_colors import DefaultColor
-from colorcode import color_parser
 
 
 class TestColor(unittest.TestCase):
-    def test_basics(self):
+    def test_basics(self) -> None:
         """Basic properties (rgb/rgba/base) are stored and updated correctly."""
         c = color.Color(10, 20, 30, 40, base=255)
         self.assertEqual(c.rgb, (10, 20, 30))
@@ -16,19 +14,19 @@ class TestColor(unittest.TestCase):
         c.base = 100
         self.assertEqual(c.base, 100)
 
-    def test_rgb_setter(self):
+    def test_rgb_setter(self) -> None:
         """Setting rgb property updates the underlying color components."""
         c = color.Color()
         c.rgb = (100, 150, 200)
         self.assertEqual(c.rgb, (100, 150, 200))
 
-    def test_rgba_setter(self):
+    def test_rgba_setter(self) -> None:
         """Setting rgba property updates all four color components."""
         c = color.Color()
         c.rgba = (50, 60, 70, 80)
         self.assertEqual(c.rgba, (50, 60, 70, 80))
 
-    def test_hsv_property(self):
+    def test_hsv_property(self) -> None:
         """Accessing and assigning hsv should reflect correct conversions to/from RGB."""
         c = color.Color(255, 0, 0)
         h, s, v = c.hsv
@@ -39,16 +37,16 @@ class TestColor(unittest.TestCase):
         c.hsv = (120, 1, 1)  # green
         self.assertEqual(c.rgb, (0, 255, 0))
 
-    def test_tsl_property(self):
+    def test_tsl_property(self) -> None:
         """TSL getters/setters can be accessed and assigned without error."""
         c = color.Color(10, 20, 30)
-        t, s, l = c.tsl
+        t, s, lightness = c.tsl
         # setting back should not raise and rgb stays a tuple of numbers
-        c.tsl = (t, s, l)
+        c.tsl = (t, s, lightness)
         self.assertIsInstance(c.rgb, tuple)
         self.assertEqual(len(c.rgb), 3)
 
-    def test_yiq_property(self):
+    def test_yiq_property(self) -> None:
         """YIQ getters/setters are callable and yield three-component tuples."""
         c = color.Color(100, 150, 200)
         y, i, q = c.yiq
@@ -56,15 +54,15 @@ class TestColor(unittest.TestCase):
         self.assertIsInstance(c.rgb, tuple)
         self.assertEqual(len(c.rgb), 3)
 
-    def test_hls_property(self):
+    def test_hls_property(self) -> None:
         """HLS getters/setters operate without raising and return three floats."""
         c = color.Color(100, 150, 200)
-        h, l, s = c.hls
-        c.hls = (h, l, s)
+        h, lightness, s = c.hls
+        c.hls = (h, lightness, s)
         self.assertIsInstance(c.rgb, tuple)
         self.assertEqual(len(c.rgb), 3)
 
-    def test_create_method(self):
+    def test_create_method(self) -> None:
         """Color.create handles ints, strings, sequences, and DefaultColor correctly."""
         self.assertEqual(color.Color.create(0).rgb, color.Color(0, 0, 0).rgb)
         self.assertEqual(
@@ -77,14 +75,14 @@ class TestColor(unittest.TestCase):
             color.Color.create(DefaultColor.Black).rgb, color.Color(0, 0, 0).rgb
         )
 
-    def test_chromacity_methods(self):
+    def test_chromacity_methods(self) -> None:
         """Red/green chromacity methods compute proper ratios from RGB components."""
         c = color.Color(100, 150, 200)
         total = c.red + c.green + c.blue
         self.assertEqual(c.red_chromacity(), c.red / total)
         self.assertEqual(c.green_chromacity(), c.green / total)
 
-    def test_saturation_hue_tint(self):
+    def test_saturation_hue_tint(self) -> None:
         """saturation(), hue(), and tint() should return expected scalar values."""
         c = color.Color(255, 0, 0)
         self.assertEqual(c.saturation(), 1.0)
@@ -92,7 +90,7 @@ class TestColor(unittest.TestCase):
         # tint from tsl should be computed without error
         _ = c.tint()
 
-    def test_lighter_darker(self):
+    def test_lighter_darker(self) -> None:
         """lighter/darker modify the color's rgb appropriately and in-place."""
         c = color.Color(100, 100, 100)
         orig = c.rgb
@@ -103,12 +101,12 @@ class TestColor(unittest.TestCase):
         # after darker, rgb should be <= previous rgb values
         self.assertTrue(all(v <= orig[i] for i, v in enumerate(c.rgb)))
 
-    def test_opacity(self):
+    def test_opacity(self) -> None:
         """opacity() returns the normalized alpha component."""
         c = color.Color(0, 0, 0, a=128)
         self.assertEqual(c.opacity(), 128 / 255)
 
-    def test_index_packing(self):
+    def test_index_packing(self) -> None:
         """__index__ should pack RGBA into a single 32-bit integer correctly."""
         c = color.Color(1, 2, 3, a=4, base=255)
         expected = (1 << 24) | (2 << 16) | (3 << 8) | 4

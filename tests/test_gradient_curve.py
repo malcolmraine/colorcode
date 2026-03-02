@@ -5,7 +5,7 @@ from colorcode import gradient_curve
 
 
 class TestGradientCurve(unittest.TestCase):
-    def test_linear_curve_clamps(self):
+    def test_linear_curve_clamps(self) -> None:
         """LinearCurve should clamp inputs outside [0,1] and return x otherwise."""
         curve = gradient_curve.LinearCurve()
         self.assertEqual(curve(-0.5), 0.0)
@@ -14,7 +14,7 @@ class TestGradientCurve(unittest.TestCase):
         self.assertEqual(curve(1.0), 1.0)
         self.assertEqual(curve(2.0), 1.0)
 
-    def test_exponential_curve(self):
+    def test_exponential_curve(self) -> None:
         """ExponentialCurve should apply exponent then clamp the result."""
         curve = gradient_curve.ExponentialCurve(exponent=2)
         # x**2 clamped
@@ -24,7 +24,7 @@ class TestGradientCurve(unittest.TestCase):
         self.assertEqual(curve(1.0), 1.0)
         self.assertEqual(curve(2.0), 1.0)
 
-    def test_logarithmic_curve(self):
+    def test_logarithmic_curve(self) -> None:
         """LogarithmicCurve returns zero for x<=0 and factor*log(x)+1 otherwise, clamped."""
         curve = gradient_curve.LogarithmicCurve(factor=0.5)
         # x<=0 returns 0

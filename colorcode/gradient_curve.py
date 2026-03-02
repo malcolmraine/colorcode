@@ -41,7 +41,7 @@ class ExponentialCurve(GradientCurve):
 
 ###############################################################################
 class LogarithmicCurve(GradientCurve):
-    def __init__(self, factor=0.5) -> None:
+    def __init__(self, factor: float = 0.5) -> None:
         self._factor = factor
 
     def get_curve_value(self, x: float) -> float:

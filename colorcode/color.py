@@ -152,9 +152,8 @@ class Color(object):
         None
         """
         h, s, v = value[0] / 360, value[1], value[2]
-        self.red, self.green, self.blue = map(
-            int, color_model.HSV_Model().to_rgb(h, s, v)
-        )
+        # assign normalized float components returned by the model
+        self.red, self.green, self.blue = color_model.HSV_Model().to_rgb(h, s, v)
 
     @property
     def tsl(self) -> tuple[float, float, float]:
@@ -188,7 +187,7 @@ class Color(object):
 
     @yiq.setter
     def yiq(self, value: tuple[float, float, float]) -> None:
-        self.red, self.green, self.blue = colorsys.rgb_to_yiq(*value)
+        self.red, self.green, self.blue = colorsys.yiq_to_rgb(*value)
 
     @property
     def hls(self) -> tuple[float, float, float]:
@@ -196,7 +195,7 @@ class Color(object):
 
     @hls.setter
     def hls(self, value: tuple[float, float, float]) -> None:
-        self.red, self.green, self.blue = colorsys.rgb_to_hls(*value)
+        self.red, self.green, self.blue = colorsys.hls_to_rgb(*value)
 
     @classmethod
     def create(
@@ -205,16 +204,15 @@ class Color(object):
         if isinstance(data, int):
             components = color_parser.parse_color_int(data)
             return cls(*components)
+        elif isinstance(data, DefaultColor):
+            components = color_parser.parse_color_string(str(data))
+            return cls(*components)
         elif isinstance(data, str):
             components = color_parser.parse_color_string(data)
             return cls(*components)
         elif isinstance(data, (list, tuple)):
             return cls(*data)
-        elif isinstance(data, DefaultColor):
-            components = color_parser.parse_color_string(str(data))
-            return cls(*components)
-        else:
-            return cls(*data)
+        raise TypeError(f"Unsupported data type for Color.create: {type(data)}")
 
     def red_chromacity(self) -> float:
         return color_model.calc_red_chromacity(self.red, self.green, self.blue)

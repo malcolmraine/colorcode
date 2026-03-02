@@ -30,9 +30,9 @@ print("HSV -> RGB:", hsv.to_rgb(h, s, v))
 
 # HSL round-trip
 hsl = color_model.HSL_Model()
-h, s, l = hsl.from_rgb(*rgb)
-print("HSL:", (h, s, l))
-print("HSL -> RGB:", hsl.to_rgb(h, s, l))
+h, s, lightness = hsl.from_rgb(*rgb)
+print("HSL:", (h, s, lightness))
+print("HSL -> RGB:", hsl.to_rgb(h, s, lightness))
 
 # YIQ round-trip
 yiq = color_model.YIQ_Model()
