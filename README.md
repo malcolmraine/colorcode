@@ -1,6 +1,8 @@
 ![ColorCode](./assets/colorcode_logo_with_name.svg)
 
-![CI](https://github.com/malcolmraine/colorcode/actions/workflows/ci.yml/badge.svg)
+![Tests](https://github.com/malcolmraine/colorcode/actions/workflows/tests.yml/badge.svg)
+![Ruff](https://github.com/malcolmraine/colorcode/actions/workflows/ruff.yml/badge.svg)
+![Mypy](https://github.com/malcolmraine/colorcode/actions/workflows/mypy.yml/badge.svg)
 
 
 ## ColorCode — Python library for handling colors
