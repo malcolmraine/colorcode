@@ -1,3 +1,10 @@
+"""
+colorcode/color_parser.py
+
+Functions for parsing color expressions (hex, rgb strings, integers) into
+component tuples.
+"""
+
 from __future__ import annotations
 
 import typing

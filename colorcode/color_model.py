@@ -1,3 +1,10 @@
+"""
+colorcode/color_model.py
+
+Implementations of various colour models (RGB, HSV, HSL, TSL, YIQ) and
+conversion routines between them.
+"""
+
 from __future__ import annotations
 
 import colorsys

@@ -1,3 +1,9 @@
+"""
+colorcode/__init__.py
+
+Package initializer exposing major classes and submodules.
+"""
+
 from .color import Color
 from . import color_model
 from . import color_parser

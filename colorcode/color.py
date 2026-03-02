@@ -1,3 +1,10 @@
+"""
+colorcode/color.py
+
+Core Color class representing RGBA colours and offering many convenience
+properties and conversion helpers.
+"""
+
 from __future__ import annotations
 
 import colorsys
