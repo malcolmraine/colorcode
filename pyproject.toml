@@ -6,5 +6,32 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = []
 
+[project.optional-dependencies]
+dev = ["mypy", "ruff"]
+
 [project.urls]
 Homepage = "https://github.com/malcolmraine/colorcode"
+
+[tool.mypy]
+# Use strict mode to enable the strictest set of checks.
+strict = true
+# Target python version (keep in sync with project.requires-python)
+python_version = "3.12"
+# Surface more warnings that help maintainability.
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+warn_unused_configs = true
+# Disallow common weak typing patterns
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+
+# Do not silently hide missing stubs — we want explicit fixes
+ignore_missing_imports = false
+
+# Keep error output helpful
+show_error_context = true
