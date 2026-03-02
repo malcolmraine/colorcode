@@ -4,7 +4,12 @@ from . import color_parser
 from .default_colors import DefaultColor
 from . import gradient
 from .gradient import Gradient
-from .gradient_curve import LinearCurve, LogarithmicCurve, ExponentialCurve
+from .gradient_curve import (
+    GradientCurve,
+    LinearCurve,
+    LogarithmicCurve,
+    ExponentialCurve,
+)
 
 __version__ = "0.1.0"
 
@@ -15,6 +20,7 @@ __all__ = [
     "DefaultColor",
     "gradient",
     "Gradient",
+    "GradientCurve",
     "LinearCurve",
     "LogarithmicCurve",
     "ExponentialCurve",
