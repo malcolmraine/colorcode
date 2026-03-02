@@ -35,3 +35,7 @@ ignore_missing_imports = false
 
 # Keep error output helpful
 show_error_context = true
+
+[tool.setuptools.packages.find]
+include = ["colorcode*"]
+exclude = ["assets*"]
