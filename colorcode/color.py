@@ -44,8 +44,18 @@ class Color(object):
         return f"{self.__class__.__name__}(r={round(r)}, g={round(g)}, b={round(b)}, a={round(a)})"
 
     def __index__(self) -> int:
-        result = int(self.red * self._base) << 32
-        result |= int(self.green * self._base) << 16
+        """
+        Return a 32-bit integer packed as RGBA (red high byte).
+
+        Each component is scaled by the current base and placed into a
+        separate byte: red in the most significant byte, followed by
+        green, blue, and alpha in the least significant byte.
+        """
+        r = int(self.red * self._base) & 0xFF
+        g = int(self.green * self._base) & 0xFF
+        b = int(self.blue * self._base) & 0xFF
+        a = int(self.alpha * self._base) & 0xFF
+        return (r << 24) | (g << 16) | (b << 8) | a
 
     @property
     def base(self) -> int | float:

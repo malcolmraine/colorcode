@@ -14,9 +14,9 @@ class TestGradient(unittest.TestCase):
         results = list(grad)
         # each step increments by 64 (approx)
         expected = [
-            color.Color(64, 64, 64),
-            color.Color(128, 128, 128),
-            color.Color(192, 192, 192),
+            color.Color(63.75, 63.75, 63.75),
+            color.Color(127.5, 127.5, 127.5),
+            color.Color(191.25, 191.25, 191.25),
             color.Color(255, 255, 255),
         ]
         self.assertEqual(len(results), 4)

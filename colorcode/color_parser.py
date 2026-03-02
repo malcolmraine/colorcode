@@ -84,7 +84,13 @@ def parse_hex_string(
 
 def parse_color_int(color_int: int) -> ComponentTuple:
     """
-    Convert an integer into color components.
+    Convert an integer into RGB(A) color components.
+
+    The function assumes the integer is packed with the most significant
+    byte containing the red component, followed by green, blue and
+    optionally alpha in the least significant byte.  Values up to
+    ``0xFFFFFF`` are treated as RGB, larger values (<= 0xFFFFFFFF) are
+    parsed as RGBA.  Any bits beyond 32 are ignored.
 
     Parameters
     ----------
@@ -94,18 +100,21 @@ def parse_color_int(color_int: int) -> ComponentTuple:
     Returns
     -------
     ColorComponents
-        A tuple of color components.
-
+        A tuple of color components (3 or 4 elements).
     """
-    alpha: int | None = None
+    # mask to 32 bits in case input is larger
+    color_int &= 0xFFFFFFFF
 
-    if (color_int + 1) >= 2**32:
-        # There are 4 components
-        alpha = color_int >> 24
-    green = color_int >> 16
-    blue = color_int >> 8
-    red = color_int & 0xFF
-
-    if alpha is not None:
-        return red, green, blue, alpha
-    return red, green, blue
+    if color_int > 0xFFFFFF:
+        # assume RGBA packing
+        r = (color_int >> 24) & 0xFF
+        g = (color_int >> 16) & 0xFF
+        b = (color_int >> 8) & 0xFF
+        a = color_int & 0xFF
+        return r, g, b, a
+    else:
+        # RGB packing
+        r = (color_int >> 16) & 0xFF
+        g = (color_int >> 8) & 0xFF
+        b = color_int & 0xFF
+        return r, g, b
