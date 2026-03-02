@@ -42,6 +42,26 @@ class TestColorParser(unittest.TestCase):
         results = color_parser.parse_color_int(16777215)
         self.assertListEqual(list(results), [255, 255, 255])
 
+    def test_default_colors_roundtrip(self):
+        """Each DefaultColor should parse and round-trip back to the same hex."""
+        from colorcode.default_colors import DefaultColor
+        from colorcode import color
+
+        for default in DefaultColor:
+            hex_str = str(default)
+            # parse the hex and create a Color object
+            comps = color_parser.parse_hex_string(hex_str)
+            c = color.Color(*comps)
+            # convert back to a normalized hex string (ignore case)
+            r, g, b = map(int, c.rgb)
+            if len(hex_str.strip("#")) == 8:
+                # include alpha channel
+                a = int(c.rgba[3])
+                out_hex = f"#{r:02x}{g:02x}{b:02x}{a:02x}".upper()
+            else:
+                out_hex = f"#{r:02x}{g:02x}{b:02x}".upper()
+            self.assertEqual(out_hex, hex_str.upper(), f"mismatch for {default}")
+
         results = color_parser.parse_color_int(1919710)
         self.assertListEqual(list(results), [29, 74, 222])
 
