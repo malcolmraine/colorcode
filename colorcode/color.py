@@ -13,7 +13,7 @@ class Color(object):
         r: int | float = 0,
         g: int | float = 0,
         b: int | float = 0,
-        a: int | float = 0,
+        a: int | float = 255,
         base: int | float = 255,
     ) -> None:
         """
@@ -40,7 +40,12 @@ class Color(object):
         self._base = base
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(r={self.red * self._base}, g={self.green * self._base}, b={self.blue * self._base}, a={self.alpha * self._base})"
+        r, g, b, a = self.rgba
+        return f"{self.__class__.__name__}(r={round(r)}, g={round(g)}, b={round(b)}, a={round(a)})"
+
+    def __index__(self) -> int:
+        result = int(self.red * self._base) << 32
+        result |= int(self.green * self._base) << 16
 
     @property
     def base(self) -> int | float:
@@ -87,7 +92,7 @@ class Color(object):
             self.red * self._base,
             self.green * self._base,
             self.blue * self._base,
-            self.alpha,
+            self.alpha * self._base,
         )
 
     @rgba.setter
