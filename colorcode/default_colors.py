@@ -153,3 +153,4 @@ class DefaultColor(enum.StrEnum):
     White_Smoke = "#F5F5F5"
     Yellow = "#FFFF00"
     Yellow_Green = "#9ACD32"
+    Transparent = "#00000000"
