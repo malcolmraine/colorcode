@@ -1,8 +1,8 @@
 """
-colorcode/color.py
-
-Core Color class representing RGBA colours and offering many convenience
-properties and conversion helpers.
+File: colorcode/color.py
+Description: Core Color class representing RGBA colours and offering many convenience properties and conversion helpers.
+Author: Malcolm Hall
+License: MIT
 """
 
 from __future__ import annotations

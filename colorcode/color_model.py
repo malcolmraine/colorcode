@@ -1,8 +1,8 @@
 """
-colorcode/color_model.py
-
-Implementations of various colour models (RGB, HSV, HSL, TSL, YIQ) and
-conversion routines between them.
+File: colorcode/color_model.py
+Description: Implementations of various colour models (RGB, HSV, HSL, TSL, YIQ) and conversion routines between them.
+Author: Malcolm Hall
+License: MIT
 """
 
 from __future__ import annotations

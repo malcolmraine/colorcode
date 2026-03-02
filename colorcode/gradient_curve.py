@@ -1,5 +1,8 @@
 """
-Curves for specifying the transition between the start and end of a color gradient.
+File: colorcode/gradient_curve.py
+Description: Curves for specifying the transition between the start and end of a color gradient.
+Author: Malcolm Hall
+License: MIT
 """
 
 import math

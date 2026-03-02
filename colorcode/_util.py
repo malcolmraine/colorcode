@@ -1,7 +1,8 @@
 """
-colorcode/_util.py
-
-Utility helpers used internally by the package.
+File: colorcode/_util.py
+Description: Utility helpers used internally by the package.
+Author: Malcolm Hall
+License: MIT
 """
 
 

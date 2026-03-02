@@ -1,8 +1,8 @@
 """
-colorcode/color_parser.py
-
-Functions for parsing color expressions (hex, rgb strings, integers) into
-component tuples.
+File: colorcode/color_parser.py
+Description: Functions for parsing color expressions (hex, rgb strings, integers) into component tuples.
+Author: Malcolm Hall
+License: MIT
 """
 
 from __future__ import annotations

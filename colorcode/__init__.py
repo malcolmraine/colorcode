@@ -1,7 +1,8 @@
 """
-colorcode/__init__.py
-
-Package initializer exposing major classes and submodules.
+File: colorcode/__init__.py
+Description: Package initializer exposing major classes and submodules.
+Author: Malcolm Hall
+License: MIT
 """
 
 from .color import Color

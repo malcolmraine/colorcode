@@ -1,7 +1,8 @@
 """
-colorcode/default_colors.py
-
-Enumeration of predefined colour names using X11 colour codes.
+File: colorcode/default_colors.py
+Description: Enumeration of predefined colour names using X11 colour codes.
+Author: Malcolm Hall
+License: MIT
 """
 
 import enum

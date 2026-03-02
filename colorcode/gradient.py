@@ -1,5 +1,8 @@
 """
-Gradient calculations between two colors.
+File: colorcode/gradient.py
+Description: Gradient calculations between two colors.
+Author: Malcolm Hall
+License: MIT
 """
 
 from typing import Iterator
