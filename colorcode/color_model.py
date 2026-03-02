@@ -114,7 +114,11 @@ class HSV_Model(ColorModel):
 ###############################################################################
 class HSL_Model(ColorModel):
     def to_rgb(self, hue: float, saturation: float, lightness: float) -> ComponentTuple:
-        return colorsys.hls_to_rgb(hue, saturation, lightness)
+        # colorsys expects arguments in HLS order (hue, lightness, saturation).
+        # our method signature names the second and third parameters
+        # ``saturation`` and ``lightness`` respectively, so swap them when
+        # invoking the underlying conversion to match the expected order.
+        return colorsys.hls_to_rgb(hue, lightness, saturation)
 
     def from_rgb(self, red: float, green: float, blue: float) -> ComponentTuple:
         h, l, s = colorsys.rgb_to_hls(red, green, blue)
