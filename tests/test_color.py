@@ -92,13 +92,14 @@ class TestColor(unittest.TestCase):
 
     def test_lighter_darker(self) -> None:
         """lighter/darker modify the color's rgb appropriately and in-place."""
-        c = color.Color(100, 100, 100)
+        # use a color with some saturation; pure gray will not change
+        c = color.Color(100, 50, 0)
         orig = c.rgb
         c.lighter(0.5)
-        # lighter reduces saturation so rgb changes
+        # lighter should reduce saturation enough that rgb changes
         self.assertNotEqual(c.rgb, orig)
         c.darker(0.5)
-        # after darker, rgb should be <= previous rgb values
+        # after darker, rgb components should not exceed the original
         self.assertTrue(all(v <= orig[i] for i, v in enumerate(c.rgb)))
 
     def test_opacity(self) -> None:
