@@ -15,6 +15,8 @@ from ._color_types import ComponentTuple
 
 
 class Color(object):
+    __slots__ = {"red", "green", "blue", "alpha", "_base"}
+
     def __init__(
         self,
         r: int | float = 0,
