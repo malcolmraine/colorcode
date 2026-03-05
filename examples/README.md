@@ -10,7 +10,7 @@ imported directly.
 Activate your virtual environment (if you have one) and run e.g.: 
 
 ```bash
-PYTHONPATH=. python3 examples/example_parse_color.py
+python3 examples/example_parse_color.py
 ```
 
 The example scripts include an `Expected output` section at the top of each
