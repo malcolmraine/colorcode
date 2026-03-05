@@ -91,16 +91,3 @@ class SvgExporter(object):
 
         with open(str(filename), "w") as f:
             f.write(svg_xml)
-
-
-
-
-from colorcode.color import Color
-from colorcode import Gradient
-from colorcode import gradient_curve
-from colorcode import color_model
-
-gradient = Gradient(Color(0, 0, 0), Color(128, 50, 255), steps=100, model=color_model.HSV_Model(),curve=gradient_curve.AgnesiWitchCurve())
-colorList = list(gradient)
-exporter = SvgExporter([Color(128, 120, 0)], image_width=512)
-exporter.save(pathlib.Path(__file__).parent / "color.svg")
