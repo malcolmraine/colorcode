@@ -57,6 +57,8 @@ class AgnesiWitchCurve(GradientCurve):
     Basically looks like a narrow bell curve.
     """
 
+    def __init__(self, factor: float = 0.04) -> None:
+        self._factor = factor
+
     def get_curve_value(self, x: float) -> float:
-        a = 0.04
-        return (8 * (a**2.2154)) / ((x - 0.5) ** 2 + (4 * a**2))
+        return (8 * (self._factor**2.2154)) / ((x - 0.5) ** 2 + (4 * self._factor**2))
