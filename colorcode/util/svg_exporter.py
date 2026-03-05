@@ -10,6 +10,7 @@ from __future__ import annotations
 from string import Template
 import typing
 import pathlib
+import os
 
 if typing.TYPE_CHECKING:
     from colorcode.color import Color
@@ -88,6 +89,9 @@ class SvgExporter(object):
         else:
             svg_dict["CRISP_SHAPE_RENDERING"] = ""
         svg_xml = svg_template.substitute(svg_dict)
+
+        file_dir = os.path.dirname(filename)
+        os.makedirs(file_dir, exist_ok=True)
 
         with open(str(filename), "w") as f:
             f.write(svg_xml)
