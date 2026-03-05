@@ -1,5 +1,5 @@
 """
-File: colorcode/util/svg_exporter.py
+File: colorcode/util/colorstrip_exporter.py
 Description: Exports colors to an SVG color strip.
 Author: Malcolm Hall
 License: MIT
@@ -11,6 +11,8 @@ from string import Template
 import typing
 import pathlib
 import os
+from abc import ABC, abstractmethod
+import typing
 
 if typing.TYPE_CHECKING:
     from colorcode.color import Color
@@ -35,7 +37,12 @@ slice_template = Template(
 )
 
 
-class SvgExporter(object):
+class ColorStripExporter(ABC):
+    @abstractmethod
+    def save(self, filename: pathlib.Path | str) -> None: ...
+
+
+class SvgExporter(ColorStripExporter):
     def __init__(
         self, color_list: list[Color], image_width: int = 512, image_height: int = 128
     ) -> None:
@@ -43,7 +50,11 @@ class SvgExporter(object):
         self.image_width = image_width
         self.image_height = image_height
         self.crisp_shape_rendering = True
-        self._slice_width = int(self.image_width / len(self.color_list))
+
+        if not color_list:
+            self._slice_width = 0
+        else:
+            self._slice_width = int(self.image_width / len(self.color_list))
 
     def is_valid(self) -> bool:
         if (
@@ -95,3 +106,15 @@ class SvgExporter(object):
 
         with open(str(filename), "w") as f:
             f.write(svg_xml)
+
+
+def export_colorstrip(
+    color_list: typing.Iterable[Color],
+    filename: pathlib.Path | str,
+    image_width: int = 512,
+    image_height: int = 128,
+) -> None:
+    exporter = SvgExporter(
+        list(color_list), image_width=image_width, image_height=image_height
+    )
+    exporter.save(filename)

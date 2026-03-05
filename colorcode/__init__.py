@@ -17,6 +17,8 @@ from .gradient_curve import (
     LogarithmicCurve,
     ExponentialCurve,
 )
+from . import util
+from .util.colorstrip_exporter import export_colorstrip
 
 __version__ = "0.1.0"
 
@@ -31,6 +33,7 @@ __all__ = [
     "LinearCurve",
     "LogarithmicCurve",
     "ExponentialCurve",
+    "export_colorstrip"
 ]
 
 
