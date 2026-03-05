@@ -14,7 +14,7 @@ from ._util import clamp
 ###############################################################################
 class GradientCurve(ABC):
     def __call__(self, x: float) -> float:
-        return self.get_curve_value(self._clamp(x))
+        return self._clamp(self.get_curve_value(self._clamp(x)))
 
     @staticmethod
     def _clamp(x: float) -> float:
@@ -36,7 +36,7 @@ class ExponentialCurve(GradientCurve):
         self._exponent = exponent
 
     def get_curve_value(self, x: float) -> float:
-        return self._clamp(x**self._exponent)
+        return x**self._exponent
 
 
 ###############################################################################
@@ -47,4 +47,16 @@ class LogarithmicCurve(GradientCurve):
     def get_curve_value(self, x: float) -> float:
         if x <= 0.0:
             return 0.0
-        return self._clamp(self._factor * math.log(x) + 1)
+        return self._factor * math.log(x) + 1
+
+
+###############################################################################
+class AgnesiWitchCurve(GradientCurve):
+    """
+    Modified version of the Witch of Agnesi function.
+    Basically looks like a narrow bell curve.
+    """
+
+    def get_curve_value(self, x: float) -> float:
+        a = 0.04
+        return (8 * (a**2.2154)) / ((x - 0.5) ** 2 + (4 * a**2))
