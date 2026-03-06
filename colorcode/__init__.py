@@ -33,7 +33,7 @@ __all__ = [
     "LinearCurve",
     "LogarithmicCurve",
     "ExponentialCurve",
-    "export_colorstrip"
+    "export_colorstrip",
 ]
 
 
