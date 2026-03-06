@@ -69,6 +69,6 @@ class AgnesiWitchCurve(GradientCurve):
 ###############################################################################
 class TriangleCurve(GradientCurve):
     def get_curve_value(self, x: float) -> float:
-        if 0 < x <= 0.5:
+        if 0 <= x <= 0.5:
             return x * 2
-        return (1 - (x * 0.5)) + 1
+        return (1 - 2 * x) + 1
