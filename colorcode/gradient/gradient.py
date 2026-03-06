@@ -7,8 +7,8 @@ License: MIT
 
 from typing import Iterator
 
-from .color import Color
-from . import color_model
+from colorcode.color import Color
+from colorcode import color_model
 from .gradient_curve import GradientCurve, LinearCurve
 
 

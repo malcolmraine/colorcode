@@ -8,7 +8,6 @@ License: MIT
 from __future__ import annotations
 
 from string import Template
-import typing
 import pathlib
 import os
 from abc import ABC, abstractmethod

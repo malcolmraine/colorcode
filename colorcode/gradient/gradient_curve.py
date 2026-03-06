@@ -8,7 +8,7 @@ License: MIT
 import math
 from abc import abstractmethod, ABC
 
-from ._util import clamp
+from colorcode.util import clamp
 
 
 ###############################################################################

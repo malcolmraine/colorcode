@@ -10,31 +10,11 @@ from . import color_model
 from . import color_parser
 from .default_colors import DefaultColor
 from . import gradient
-from .gradient import Gradient
-from .gradient_curve import (
-    GradientCurve,
-    LinearCurve,
-    LogarithmicCurve,
-    ExponentialCurve,
-)
 from . import util
-from .util.colorstrip_exporter import export_colorstrip
 
 __version__ = "0.1.0"
 
-__all__ = [
-    "Color",
-    "color_model",
-    "color_parser",
-    "DefaultColor",
-    "gradient",
-    "Gradient",
-    "GradientCurve",
-    "LinearCurve",
-    "LogarithmicCurve",
-    "ExponentialCurve",
-    "export_colorstrip",
-]
+__all__ = ["Color", "color_model", "color_parser", "DefaultColor", "gradient", "util"]
 
 
 # Roadmap

@@ -1,7 +1,7 @@
 import math
 import unittest
 
-from colorcode import gradient_curve
+from colorcode.gradient import gradient_curve
 
 
 class TestGradientCurve(unittest.TestCase):

@@ -12,6 +12,7 @@ from . import color_model
 from . import color_parser
 from .default_colors import DefaultColor
 from ._color_types import ComponentTuple
+from . import util
 
 
 class Color(object):
@@ -217,10 +218,10 @@ class Color(object):
         raise TypeError(f"Unsupported data type for Color.create: {type(data)}")
 
     def red_chromacity(self) -> float:
-        return color_model.calc_red_chromacity(self.red, self.green, self.blue)
+        return util.calc_red_chromacity(self.red, self.green, self.blue)
 
     def green_chromacity(self) -> float:
-        return color_model.calc_green_chromacity(self.red, self.green, self.blue)
+        return util.calc_green_chromacity(self.red, self.green, self.blue)
 
     def saturation(self) -> float:
         """

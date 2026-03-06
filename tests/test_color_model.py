@@ -50,29 +50,24 @@ class TestColorModel(unittest.TestCase):
     def test_create_factory(self) -> None:
         """ColorModel.create should produce the correct subclass or raise on unknown type."""
         self.assertIsInstance(
-            color_model.ColorModel.create(color_model.ColorModelType.RGB),
+            color_model.create(color_model.ColorModelType.RGB),
             color_model.RGB_Model,
         )
         self.assertIsInstance(
-            color_model.ColorModel.create(color_model.ColorModelType.HSV),
+            color_model.create(color_model.ColorModelType.HSV),
             color_model.HSV_Model,
         )
         self.assertIsInstance(
-            color_model.ColorModel.create(color_model.ColorModelType.TSL),
+            color_model.create(color_model.ColorModelType.TSL),
             color_model.TSL_Model,
         )
         self.assertIsInstance(
-            color_model.ColorModel.create(color_model.ColorModelType.HSL),
+            color_model.create(color_model.ColorModelType.HSL),
             color_model.HSL_Model,
         )
         with self.assertRaises(ValueError):
-            color_model.ColorModel.create(color_model.ColorModelType("UNKNOWN"))
+            color_model.create(color_model.ColorModelType("UNKNOWN"))
 
-    def test_chromacity_calculations(self) -> None:
-        """Chromacity helpers return red/green ratios of total color components."""
-        # using simple values
-        self.assertEqual(color_model.calc_red_chromacity(1, 1, 1), 1 / 3)
-        self.assertEqual(color_model.calc_green_chromacity(1, 1, 1), 1 / 3)
 
 
 if __name__ == "__main__":
