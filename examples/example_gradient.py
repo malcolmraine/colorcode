@@ -21,7 +21,7 @@ Exponential curve gradient steps:
 """
 
 from colorcode import color, gradient
-from colorcode.gradient_curve import ExponentialCurve
+from colorcode.gradient import ExponentialCurve
 
 start = color.Color(255, 0, 0)  # red
 end = color.Color(0, 0, 255)  # blue
