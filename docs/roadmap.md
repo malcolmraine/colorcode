@@ -56,7 +56,7 @@ Simple Tkinter dialog that allows for changing between color spaces and controll
 # Gradient curves
 
 - [ ] Sigmoid
-- [ ] Triangle
+- [x] Triangle
 - [ ] Bezier
 - [ ] Trapezoid
   - Vertices should be parameterizable
