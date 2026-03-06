@@ -16,3 +16,4 @@
   - [TSL](color_models.md#tsl)
   - [Creating Color Models](color_models.md#creating-models-via-factory)
   - [`Color` API](color_models.md#using-the-color-api)
+- [Development Roadmap](roadmap.md)
