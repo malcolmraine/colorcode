@@ -58,7 +58,7 @@ Default is $a=0.04$
 $
 f(x) = \begin{cases}
 2x& \text{if } 0 \leq x \leq 0.5,\\
-(1 - (0.5x)) - 1  & 0.5 \lt x \leq 1 \\
+(1 - (2x)) + 1  & 0.5 \lt x \leq 1 \\
 \end{cases}
 $
 
