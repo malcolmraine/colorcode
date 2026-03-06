@@ -24,7 +24,6 @@ class TestUtil(unittest.TestCase):
         self.assertIsInstance(util.clamp(2, 0, 3), int)
         self.assertIsInstance(util.clamp(2.5, 0.0, 3.0), float)
 
-
     def test_chromacity_calculations(self) -> None:
         """Chromacity helpers return red/green ratios of total color components."""
         # using simple values

@@ -69,6 +69,5 @@ class TestColorModel(unittest.TestCase):
             color_model.create(color_model.ColorModelType("UNKNOWN"))
 
 
-
 if __name__ == "__main__":
     unittest.main()
