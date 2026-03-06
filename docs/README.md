@@ -1,0 +1,18 @@
+# ColorCode Documentation
+
+- [Overview](overview.md#overview)
+- [Gradients](gradients.md#gradients)
+  - [Gradient Curves](gradients.md#gradient-curves)
+    + [Linear](gradients.md#linear-curve)
+    + [Logarithmic](gradients.md#logarithmic-curve)
+    + [Exponential](gradients.md#exponential-curve)
+    + [Witch of Agnesi](gradients.md#witch-of-agnesi-curve)
+    + [Triangular Curve](gradients.md#triangular-curve)
+- [Color Models](color_models.md#color-models)
+  - [RGB](color_models.md#rgb)
+  - [HSV](color_models.md#hsv)
+  - [HSL](color_models.md#hsl)
+  - [YIQ](color_models.md#yiq)
+  - [TSL](color_models.md#tsl)
+  - [Creating Color Models](color_models.md#creating-models-via-factory)
+  - [`Color` API](color_models.md#using-the-color-api)

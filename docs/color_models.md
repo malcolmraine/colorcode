@@ -12,6 +12,36 @@ snippets showing how to use the `ColorModel` classes.
 |  YIQ  | Luma / chrominance (NTSC)                      |
 |  TSL  | Tint, Saturation, Lightness (library-specific) |
 
+
+
+## Creating models via factory method
+
+Use `colormodel.create` with a `ColorModelType` to obtain a model instance:
+
+```python
+from colorcode import color_model
+
+m = color_model.create(color_model.ColorModelType.HSV)
+```
+
+
+## Using the `Color` API
+
+`color.Color` instances expose properties that delegate to these models. For
+example, `c.hsv`, `c.hls`, `c.tsl`, and `c.yiq` provide easy conversion access
+from a `Color` object:
+
+```python
+from colorcode import color
+
+c = color.Color(255, 0, 0)   # red
+print(c.hsv)                # (hue, saturation, value)
+c.hsv = (120, 1, 1)         # set to green via HSV
+```
+
+These snippets should help you get started exploring different color
+representations in the library.
+
 ## RGB
 
 RGB contains explicit red, green and blue channels. The `RGB_Model` in
@@ -96,31 +126,5 @@ t, s, l = model.from_rgb(*rgb)
 rgb_back = model.to_rgb(t, s, l)
 ```
 
-## Creating models via factory
-
-Use `ColorModel.create` with `ColorModelType` to obtain a model instance:
-
-```python
-from colorcode import color_model
-
-m = color_model.create(color_model.ColorModelType.HSV)
-```
-
-## Using the `Color` API
-
-`color.Color` instances expose properties that delegate to these models. For
-example, `c.hsv`, `c.hls`, `c.tsl`, and `c.yiq` provide easy conversion access
-from a `Color` object:
-
-```python
-from colorcode import color
-
-c = color.Color(255, 0, 0)   # red
-print(c.hsv)                # (hue, saturation, value)
-c.hsv = (120, 1, 1)         # set to green via HSV
-```
-
-These snippets should help you get started exploring different color
-representations in the library.
 
 
