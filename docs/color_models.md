@@ -4,13 +4,15 @@ ColorCode supports conversions between various color models. Below are the
 models implemented in this library along with short explanations and code
 snippets showing how to use the `ColorModel` classes.
 
-| Model | Description                                    |
-|:-----:|:-----------------------------------------------|
-|  RGB  | Red, Green, Blue (pass-through)                |
-|  HSV  | Hue, Saturation, Value                         |
-|  HSL  | Hue, Saturation, Lightness                     |
-|  YIQ  | Luma / chrominance (NTSC)                      |
-|  TSL  | Tint, Saturation, Lightness (library-specific) |
+| Model | Description                 |
+|:-----:|:----------------------------|
+|  RGB  | Red, Green, Blue            |
+|  HSV  | Hue, Saturation, Value      |
+|  HSL  | Hue, Saturation, Lightness  |
+|  YIQ  | Luma / chrominance (NTSC)   |
+|  TSL  | Tint, Saturation, Lightness |
+|  YUV  |                             |
+| YDbDr |                             |
 
 
 

@@ -11,6 +11,8 @@ from .hsl_model import HSL_Model
 from .tsl_model import TSL_Model
 from .yiq_model import YIQ_Model
 from .rgb_model import RGB_Model
+from .yuv_model import YUV_Model, YUVStandard
+from .ydbdr_model import YDbDr_Model
 import enum
 
 
@@ -20,6 +22,9 @@ class ColorModelType(enum.StrEnum):
     TSL = "TSL"
     HSL = "HSL"
     YIQ = "YIQ"
+    YUV_BT470 = "YUV_BT470"
+    YUV_BT709 = "YUV_BT709"
+    YDbDr = "YDbDr"
 
 
 def create(model_type: ColorModelType) -> ColorModel:
@@ -34,5 +39,11 @@ def create(model_type: ColorModelType) -> ColorModel:
             return HSL_Model()
         case ColorModelType.YIQ:
             return YIQ_Model()
+        case ColorModelType.YUV_BT470:
+            return YUV_Model(YUVStandard.BT470)
+        case ColorModelType.YUV_BT709:
+            return YUV_Model(YUVStandard.BT709)
+        case ColorModelType.YDbDr:
+            return YDbDr_Model()
         case _:
             raise ValueError(f"Unknown color model type: {model_type}")
