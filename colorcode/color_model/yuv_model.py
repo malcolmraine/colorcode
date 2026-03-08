@@ -5,8 +5,6 @@ Author: Malcolm Hall
 License: MIT
 """
 
-from unittest import case
-
 from .base_model import ColorModel, ModelTuple
 from ..util import clamp
 from typing import Final
