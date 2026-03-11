@@ -6,8 +6,9 @@ License: MIT
 """
 
 import math
+import random
 from abc import abstractmethod, ABC
-
+import typing
 from colorcode.util import clamp
 
 
@@ -26,6 +27,7 @@ class GradientCurve(ABC):
 
 ###############################################################################
 class LinearCurve(GradientCurve):
+    @typing.override
     def get_curve_value(self, x: float) -> float:
         return x
 
@@ -35,6 +37,7 @@ class ExponentialCurve(GradientCurve):
     def __init__(self, exponent: float = 2.0):
         self._exponent = exponent
 
+    @typing.override
     def get_curve_value(self, x: float) -> float:
         return float(x**self._exponent)
 
@@ -44,6 +47,7 @@ class LogarithmicCurve(GradientCurve):
     def __init__(self, factor: float = 0.5) -> None:
         self._factor = factor
 
+    @typing.override
     def get_curve_value(self, x: float) -> float:
         if x <= 0.0:
             return 0.0
@@ -60,6 +64,7 @@ class AgnesiWitchCurve(GradientCurve):
     def __init__(self, factor: float = 0.04) -> None:
         self._factor = factor
 
+    @typing.override
     def get_curve_value(self, x: float) -> float:
         return float(
             (8 * (self._factor**2.2154)) / ((x - 0.5) ** 2 + (4 * self._factor**2))
@@ -68,7 +73,44 @@ class AgnesiWitchCurve(GradientCurve):
 
 ###############################################################################
 class TriangleCurve(GradientCurve):
+    """
+    Generates a curve shaped like a triangle. The maximum Y value is at x=0.5
+    """
+
+    @typing.override
     def get_curve_value(self, x: float) -> float:
         if 0 <= x <= 0.5:
             return x * 2
         return (1 - 2 * x) + 1
+
+
+###############################################################################
+class RandomCurve(GradientCurve):
+    """
+    Generate random curve values.
+    """
+
+    def __init__(
+        self,
+        step: float = 0.001,
+        seed: int | float | str | bytes | bytearray | None = None,
+    ) -> None:
+        """
+        Initialize the random curve generator.
+
+        Parameters
+        ----------
+        step : float
+            Step size for the curve. This should be a number between 0 and 1.
+        seed : int | float | str | bytes| bytearray | None
+            Seed for the random number generator. If None, the default seed from the
+            random library is used.
+        """
+        self._generator = random.Random()
+        self._step = step
+        self._generator.seed(seed)
+        self._end = int(1 / step)
+
+    @typing.override
+    def get_curve_value(self, x: float) -> float:
+        return random.randrange(0, self._end) * self._step

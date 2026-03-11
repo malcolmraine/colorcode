@@ -57,7 +57,7 @@ Simple Tkinter dialog that allows for changing between color spaces and controll
 
 - [ ] Sigmoid
 - [x] Triangle
-- [ ] Random
+- [x] Random
 - [ ] Bezier
 - [ ] Trapezoid
   - Vertices should be parameterizable

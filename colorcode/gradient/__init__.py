@@ -13,6 +13,7 @@ from .gradient_curve import (
     LogarithmicCurve,
     AgnesiWitchCurve,
     TriangleCurve,
+    RandomCurve,
 )
 
 __all__ = [
@@ -23,4 +24,5 @@ __all__ = [
     "LogarithmicCurve",
     "AgnesiWitchCurve",
     "TriangleCurve",
+    "RandomCurve",
 ]

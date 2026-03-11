@@ -86,3 +86,14 @@ f(x) = \begin{cases}
 $
 
 ![Triangular Gradient Example](../assets/triangular_gradient.svg)
+
+### Triangular Curve
+```python
+from colorcode.gradient import RandomCurve
+```
+
+$
+f(x) = random(0, 1)
+$
+
+![Random Gradient Example](../assets/random_gradient.svg)

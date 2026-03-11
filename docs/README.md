@@ -8,6 +8,7 @@
     + [Exponential](gradients.md#exponential-curve)
     + [Witch of Agnesi](gradients.md#witch-of-agnesi-curve)
     + [Triangular Curve](gradients.md#triangular-curve)
+    + [Random Curve](gradients.md#random-curve)
 - [Color Models](color_models.md#color-models)
   - [RGB](color_models.md#rgb)
   - [HSV](color_models.md#hsv)
