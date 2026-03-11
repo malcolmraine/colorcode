@@ -5,6 +5,8 @@ Author: Malcolm Hall
 License: MIT
 """
 
+from __future__ import annotations
+
 import enum
 
 
@@ -161,3 +163,7 @@ class DefaultColor(enum.StrEnum):
     Yellow = "#FFFF00"
     Yellow_Green = "#9ACD32"
     Transparent = "#00000000"
+
+    @classmethod
+    def create(cls, value: str) -> DefaultColor:
+        return cls(value.lower())
