@@ -84,6 +84,10 @@ class Color(object):
         -------
         tuple[float, float, float]
 
+        Notes
+        -----
+        These are not sRGB components. If the base is 255, then these
+        values will be in the range [0, 255].
         """
         return self.red * self._base, self.green * self._base, self.blue * self._base
 
@@ -121,6 +125,16 @@ class Color(object):
         self.green = value[1] / self._base
         self.blue = value[2] / self._base
         self.alpha = value[3] / self._base
+
+    @property
+    def srgb(self) -> tuple[float, float, float]:
+        return self.red, self.green, self.blue
+
+    @srgb.setter
+    def srgb(self, value: tuple[float, float, float]) -> None:
+        self.red = value[0]
+        self.green = value[1]
+        self.blue = value[2]
 
     @property
     def hsv(self) -> tuple[float, float, float]:

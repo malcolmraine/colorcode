@@ -82,3 +82,55 @@ def rgb_to_grayscale(
             return luma_from_rgb(red, green, blue, LumaMethod.SMPTE_240M)
         case _:
             raise ValueError("Invalid method provided.")
+
+
+def intensity_from_srgb(
+    red: float, green: float, blue: float
+) -> tuple[float, float, float]:
+    """
+    
+    Parameters
+    ----------
+    red
+    green
+    blue
+
+    Returns
+    -------
+
+    """
+    if red <= 0.04045:
+        red_intensity = red / 12.92
+    else:
+        red_intensity = ((red + 0.055) / 1.055) ** 2.4
+
+    if green <= 0.04045:
+        green_intensity = green / 12.92
+    else:
+        green_intensity = ((green + 0.055) / 1.055) ** 2.4
+
+    if blue <= 0.04045:
+        blue_intensity = blue/ 12.92
+    else:
+        blue_intensity = ((blue + 0.055) / 1.055) ** 2.4
+
+    return red_intensity, green_intensity, blue_intensity
+
+
+def intensity_to_srgb(red_intensity: float, green_intensity: float, blue_intensity: float) -> tuple[float, float, float]:
+    if red_intensity <= 0.0031308:
+        red = 12.92 * red_intensity
+    else:
+        red = (1.055 * red_intensity ** (1/2.4)) - 0.055
+
+    if green_intensity <= 0.0031308:
+        green = 12.92 * green_intensity
+    else:
+        green = (1.055 * green_intensity ** (1/2.4)) - 0.055
+
+    if blue_intensity <= 0.0031308:
+        blue = 12.92 * blue_intensity
+    else:
+        blue = (1.055 * (blue_intensity ** (1/2.4))) - 0.055
+
+    return red, green, blue
