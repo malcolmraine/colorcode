@@ -17,6 +17,11 @@ Simple Tkinter dialog that allows for changing between color spaces and controll
 
 - [ ] SVG
 
+### Color difference calculations
+
+- [ ] Euclidean distance
+- [ ] Perceptual distance
+
 
 ## Color model support
 
