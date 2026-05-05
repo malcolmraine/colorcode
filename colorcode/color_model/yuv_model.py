@@ -5,7 +5,7 @@ Author: Malcolm Hall
 License: MIT
 """
 
-from .base_model import ColorModel, ModelTuple
+from .base_model import ColorModel, ColorTriple
 from ..util import clamp
 from typing import Final
 import enum
@@ -35,7 +35,7 @@ class YUV_Model(ColorModel):
             case _:
                 raise ValueError(f"Unknown standard: {standard}")
 
-    def to_rgb(self, y: float, u: float, v: float) -> ModelTuple:
+    def to_rgb(self, y: float, u: float, v: float) -> ColorTriple:
         red = y + v * ((1 - self._wr) / V_MAX)
         green = (
             y
@@ -46,7 +46,8 @@ class YUV_Model(ColorModel):
 
         return clamp(red, 0, 1), clamp(green, 0, 1), clamp(blue, 0, 1)
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+    def from_rgb(self, red: float, green: float, blue: float) -> ColorTriple:
+        self.validate_rgb(red, green, blue)
         y = self._wr * red + self._wg * green + self._wb * blue
         u = U_MAX * ((blue - y) / (1 - self._wb))
         v = V_MAX * ((red - y) / (1 - self._wr))

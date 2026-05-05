@@ -5,14 +5,14 @@ Author: Malcolm Hall
 License: MIT
 """
 
-from .base_model import ColorModel, ModelTuple
+from .base_model import ColorModel, ColorTriple
 from .. import util
 
 import math
 
 
 class TSL_Model(ColorModel):
-    def to_rgb(self, tint: float, saturation: float, lightness: float) -> ModelTuple:
+    def to_rgb(self, tint: float, saturation: float, lightness: float) -> ColorTriple:
         x = math.tan(math.tau * (float(tint) - 0.25)) ** 2
         r_prime = math.sqrt((5 * float(saturation) ** 2) / (9 * ((x**-1) + 1)))
         g_prime = math.sqrt((5 * float(saturation) ** 2) / (9 * (x + 1)))
@@ -25,7 +25,9 @@ class TSL_Model(ColorModel):
 
         return red, green, blue
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+    def from_rgb(self, red: float, green: float, blue: float) -> ColorTriple:
+        self.validate_rgb(red, green, blue)
+
         r_prime = util.calc_red_chromacity(red, green, blue) - (1.0 / 3.0)
         g_prime = util.calc_green_chromacity(red, green, blue) - (1.0 / 3.0)
 

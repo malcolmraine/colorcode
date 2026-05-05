@@ -5,7 +5,7 @@ Author: Malcolm Hall
 License: MIT
 """
 
-from .base_model import ColorModel, ModelTuple
+from .base_model import ColorModel, ColorTriple
 
 
 class RGB_Model(ColorModel):
@@ -13,8 +13,9 @@ class RGB_Model(ColorModel):
     Pass through/default color model.
     """
 
-    def to_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+    def to_rgb(self, red: float, green: float, blue: float) -> ColorTriple:
         return red, green, blue
 
-    def from_rgb(self, red: float, green: float, blue: float) -> ModelTuple:
+    def from_rgb(self, red: float, green: float, blue: float) -> ColorTriple:
+        self.validate_rgb(red, green, blue)
         return red, green, blue
