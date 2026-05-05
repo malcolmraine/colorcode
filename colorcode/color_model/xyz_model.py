@@ -6,8 +6,6 @@ License: MIT
 """
 
 from .base_model import ColorModel, ColorTriple
-from .. import util
-import numpy as np
 
 
 class XYZ_Model(ColorModel):
@@ -24,24 +22,18 @@ class XYZ_Model(ColorModel):
 
         The linear RGB values are then converted to sRGB using the companding function.
         """
-        self.validate_rgb(x, y, z)
+        # Note: XYZ values are not sRGB and can be outside [0, 1], so we don't validate
 
         # Inverse transformation matrix (XYZ to linear RGB)
-        inverse_matrix = np.array(
-            [
-                [3.2404542, -1.5371385, -0.4985314],
-                [-0.9692660, 1.8760108, 0.0415560],
-                [0.0556434, -0.2040259, 1.0572252],
-            ]
-        )
-
-        xyz = np.array([x, y, z])
-        linear_rgb = inverse_matrix @ xyz
+        # Applied manually: [R', G', B'] = M_inv @ [X, Y, Z]
+        linear_red = 3.2404542 * x - 1.5371385 * y - 0.4985314 * z
+        linear_green = -0.9692660 * x + 1.8760108 * y + 0.0415560 * z
+        linear_blue = 0.0556434 * x - 0.2040259 * y + 1.0572252 * z
 
         # Convert from linear RGB to sRGB using companding
-        red = self._linear_to_srgb(linear_rgb[0])
-        green = self._linear_to_srgb(linear_rgb[1])
-        blue = self._linear_to_srgb(linear_rgb[2])
+        red = self._linear_to_srgb(linear_red)
+        green = self._linear_to_srgb(linear_green)
+        blue = self._linear_to_srgb(linear_blue)
 
         return red, green, blue
 
@@ -59,25 +51,20 @@ class XYZ_Model(ColorModel):
 
         where R', G', B' are linear RGB values.
         """
-        self.validate_rgb(red, green, blue)
+        # Validate input RGB values are in sRGB range [0, 1]
+        ColorModel.validate_rgb(red, green, blue)
 
         # Convert from sRGB to linear RGB using inverse companding
         linear_red = self._srgb_to_linear(red)
         linear_green = self._srgb_to_linear(green)
         linear_blue = self._srgb_to_linear(blue)
 
-        transformation_matrix = np.array(
-            [
-                [0.4124564, 0.3575761, 0.1804375],
-                [0.2126729, 0.7151522, 0.0721750],
-                [0.0193339, 0.1191920, 0.9503041],
-            ]
-        )
+        # Transformation matrix applied manually: [X, Y, Z] = M @ [R', G', B']
+        x = 0.4124564 * linear_red + 0.3575761 * linear_green + 0.1804375 * linear_blue
+        y = 0.2126729 * linear_red + 0.7151522 * linear_green + 0.0721750 * linear_blue
+        z = 0.0193339 * linear_red + 0.1191920 * linear_green + 0.9503041 * linear_blue
 
-        linear_rgb = np.array([linear_red, linear_green, linear_blue])
-        xyz = transformation_matrix @ linear_rgb
-
-        return tuple(float(v) for v in xyz)
+        return x, y, z
 
     @staticmethod
     def _srgb_to_linear(value: float) -> float:
