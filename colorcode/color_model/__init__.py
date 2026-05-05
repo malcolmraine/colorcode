@@ -13,6 +13,8 @@ from .yiq_model import YIQ_Model
 from .rgb_model import RGB_Model
 from .yuv_model import YUV_Model, YUVStandard
 from .ydbdr_model import YDbDr_Model
+from .xyz_model import XYZ_Model
+from .cielab_model import CIELAB_Model
 import enum
 
 
@@ -25,6 +27,8 @@ class ColorModelType(enum.StrEnum):
     YUV_BT470 = "YUV_BT470"
     YUV_BT709 = "YUV_BT709"
     YDbDr = "YDbDr"
+    XYZ = "XYZ"
+    CIELAB = "CIELAB"
 
 
 def create(model_type: ColorModelType) -> ColorModel:
@@ -45,5 +49,9 @@ def create(model_type: ColorModelType) -> ColorModel:
             return YUV_Model(YUVStandard.BT709)
         case ColorModelType.YDbDr:
             return YDbDr_Model()
+        case ColorModelType.XYZ:
+            return XYZ_Model()
+        case ColorModelType.CIELAB:
+            return CIELAB_Model()
         case _:
             raise ValueError(f"Unknown color model type: {model_type}")
