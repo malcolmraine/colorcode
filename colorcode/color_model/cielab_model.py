@@ -97,22 +97,22 @@ class CIELAB_Model(ColorModel):
     def _XYZ_to_CIELAB_component(self, value: float) -> float:
         """
         Apply the nonlinear transformation for XYZ to L*a*b*.
-        
+
         Uses the piecewise function from CIE standard.
         """
-        delta_cubed = self._DELTA ** 3
+        delta_cubed = self._DELTA**3
         if value > delta_cubed:
             return value ** (1 / 3)
         else:
-            return value / (3 * self._DELTA ** 2) + 4 / 29
+            return value / (3 * self._DELTA**2) + 4 / 29
 
     def _CIELAB_to_XYZ_component(self, value: float) -> float:
         """
         Apply the inverse nonlinear transformation for L*a*b* to XYZ.
-        
+
         Uses the inverse of the piecewise function from CIE standard.
         """
         if value > self._DELTA:
-            return value ** 3
+            return value**3
         else:
-            return 3 * (self._DELTA ** 2) * (value - 4 / 29)
+            return 3 * (self._DELTA**2) * (value - 4 / 29)
